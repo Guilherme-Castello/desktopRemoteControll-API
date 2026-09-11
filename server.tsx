@@ -1,5 +1,5 @@
-const http = require('http')
-const createWebSocket = require('./websocket/websocket')
+import http from 'node:http'
+import createWebSocket from './websocket/websocket'
 
 const server = http.createServer()
 

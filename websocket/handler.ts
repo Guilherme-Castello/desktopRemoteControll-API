@@ -1,6 +1,7 @@
-import { type WebSocketServer } from 'ws'
+import { type WebSocketServer, type WebSocket } from 'ws'
 import { MessageType, Payload, WsMessage } from '../types/wsMessage'
 import redirectMessage from './messages/redirectMessage'
+import connectionMessage, { debugUserConnections } from './messages/connectionMessage'
 
 function getMessageType(wsMessage: WsMessage){
     return wsMessage.messageType
@@ -10,10 +11,18 @@ function shouldRedirectMessage(messageType: MessageType) {
     return ['redirectMessage', 'mediaPlayPause'].includes(messageType)
 }
 
-export function wsMessageHandler(wsServer: WebSocketServer, wsMessage: WsMessage){
+export function wsMessageHandler(wsMessage: WsMessage, ws?: WebSocket){
     const messageType = getMessageType(wsMessage)
+    console.log("handler")
+    if(messageType === "connectionMessage" && ws){
+        connectionMessage(wsMessage, ws)
+    }
+
+    if(messageType === "debugUserConnections" && ws) {
+        debugUserConnections(wsMessage)
+    }
 
     if(shouldRedirectMessage(messageType)){
-        redirectMessage(wsServer, wsMessage)
+        redirectMessage(wsMessage)
     }
 }

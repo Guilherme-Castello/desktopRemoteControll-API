@@ -24,11 +24,9 @@ export function debugUserConnections(wsMessage: WsMessage) {
 
 export default function connectionMessage(wsMessage: WsMessage, ws: WebSocket) {
     const header = getFormattedHeader(wsMessage)
-    console.log("received connection")
-    if (header == undefined) {
+    if (header == undefined || header.userId == undefined) {
         return
     }
-
     connectionRegistry.register({
         userId: header.userId,
         platform: header.platform,

@@ -1,4 +1,5 @@
 import type { WebSocket } from 'ws'
+import { WsMessage } from '../types/wsMessage'
 
 export interface UserConnection {
     userId: string
@@ -14,6 +15,26 @@ export class ConnectionRegistry {
     >()
 
     register(connection: UserConnection): void {
+        if(connection.userId.length < 5){
+            console.log("Register refused. Device: ", connection.platform + " ID length: ", connection.userId.length)
+
+
+            const connectionErrorMessage: WsMessage = {
+                messageType: "errorMessage",
+                headers: {
+                    platform: 'api',
+                    userId: connection.userId
+                },
+                payload: {
+                    message: "User ID must be bigger than 5 characters"
+                }
+            }
+
+            connection.socket.send(JSON.stringify(connectionErrorMessage))
+            connection.socket.close()
+            return
+        }
+
         const userConnections = this.connectionsByUser.get(connection.userId)
 
         if (userConnections) {

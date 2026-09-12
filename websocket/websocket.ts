@@ -10,7 +10,6 @@ function normalizeWsMessage(data: RawData): WsMessage {
 }
 
 function onConnect(ws: WebSocket, req: IncomingMessage): void {
-    console.log("Connection Received successfuly! Hello World!")
     messageListener(ws, req)
     errorListener(ws, req)
 }

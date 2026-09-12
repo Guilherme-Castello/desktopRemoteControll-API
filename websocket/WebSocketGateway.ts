@@ -7,11 +7,9 @@ export class WebSocketGateway {
 
   sendToUser(message: WsMessage): void {
     const serializedMessage = JSON.stringify(message)
-
-    const userConnections = this.registry.getUserConnections(message.payload.userId)
+    const userConnections = this.registry.getUserConnections(message.headers.userId)
 
     userConnections.forEach(userCon => {
-      console.log(userCon.connectionId)
       userCon.socket.send(serializedMessage)
     })
   }

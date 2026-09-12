@@ -13,7 +13,7 @@ function shouldRedirectMessage(messageType: MessageType) {
 
 export function wsMessageHandler(wsMessage: WsMessage, ws?: WebSocket){
     const messageType = getMessageType(wsMessage)
-    console.log("handler")
+
     if(messageType === "connectionMessage" && ws){
         connectionMessage(wsMessage, ws)
     }

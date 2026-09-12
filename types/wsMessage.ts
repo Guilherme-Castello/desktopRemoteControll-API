@@ -1,8 +1,7 @@
-export type MessageType = "test" | "redirectMessage" | "mediaPlayPause" | "connectionMessage" | "debugUserConnections"
+export type MessageType = "errorMessage" | "mediaPlayPause" | "connectionMessage" | "debugUserConnections"
 
 export type Payload = {
     message: string
-    userId: string
 }
 
 export interface WsMessage {

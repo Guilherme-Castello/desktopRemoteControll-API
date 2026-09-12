@@ -10,6 +10,6 @@ const wsServer = createWebSocket(server)
 export const connectionRegistry = new ConnectionRegistry()
 export const webSocketGateway = new WebSocketGateway(wsServer, connectionRegistry)
 
-server.listen(3000, () => {
+server.listen(3000, '0.0.0.0', () => {
     console.log("Server running on port 3000")
 })

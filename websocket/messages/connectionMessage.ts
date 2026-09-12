@@ -1,8 +1,6 @@
 import { WsMessage } from "../../types/wsMessage"
-import { connectionRegistry, webSocketGateway } from "../../server"
-import { IncomingMessage } from "http"
+import { connectionRegistry } from "../../server"
 import { type WebSocket } from "ws"
-
 
 function getFormattedHeader(wsMessage: WsMessage) {
 
